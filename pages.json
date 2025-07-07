@@ -1,0 +1,147 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ 
+		{
+			"path" : "pages/login/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "登录"
+			}
+		},
+		{
+			"path" : "pages/index/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "首页",
+				"app-plus": {
+					"titleNView": {
+						"autoBackButton": false,
+						"hideHomeButton": true
+					}
+				}
+			}
+		},
+		{
+			"path" : "pages/user/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "完善用户信息"
+			}
+		}
+	],
+	"subpackages": [
+		{
+			"root": "pagesA",
+			"pages": [
+				{
+					"path" : "valveControl/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : "阀门控制"
+					}
+				},
+				{
+					"path" : "valveControl/allValveInfo",
+					"style" : 
+					{
+						"navigationBarTitleText" : "所有阀门",
+						"enablePullDownRefresh": true, 
+						"onReachBottomDistance": 50
+					}
+				},
+				{
+					"path" : "valveControl/valveInfo",
+					"style" : 
+					{
+						"navigationBarTitleText" : "阀门信息",
+						"enablePullDownRefresh": true, 
+						"onReachBottomDistance": 50
+					}
+				},
+				{
+					"path" : "valveControl/valveSet",
+					"style" : 
+					{
+						"navigationBarTitleText" : "阀门设置"
+					}
+				}
+			]
+		}, 
+		{
+			"root": "pagesB",
+			"pages": [
+				{
+					"path" : "scan/scanSuccess",
+					"style" : 
+					{
+						"navigationBarTitleText" : "扫描结果"
+					}
+				},
+				{
+					"path" : "scan/scanError",
+					"style" : 
+					{
+						"navigationBarTitleText" : "扫描结果"
+					}
+				}
+			]
+		},
+		{
+			"root": "pagesC",
+			"pages": [
+				{
+					"path" : "equipManage/index",
+					"style" : 
+					{
+						"navigationBarTitleText" : "设备管理"
+					}
+				},
+				{
+					"path" : "equipManage/allDetail",
+					"style" : 
+					{
+						"navigationBarTitleText" : "全部地块",
+						"enablePullDownRefresh": true, 
+						"onReachBottomDistance": 50
+					}
+				},
+				{
+					"path" : "equipManage/detail",
+					"style" : 
+					{
+						"navigationBarTitleText" : "设备详情",
+						"enablePullDownRefresh": true, 
+						"onReachBottomDistance": 50
+					}
+				},
+				{
+					"path" : "equipManage/locationDetail",
+					"style" : 
+					{
+						"navigationBarTitleText" : "设备详情"
+					}
+				}
+			]
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+		// "usingComponents": {
+		// 	"u-loading": "@/uni_modules/uview-ui/components/u-loading/u-loading"
+		// }
+	},
+	"uniIdRouter": {},
+	"preloadRule": {
+		"pages/index/index": {
+			"network": "all",
+			"packages": []
+		}
+	},
+	"debug": true,
+	"defineConstants": {}
+}
