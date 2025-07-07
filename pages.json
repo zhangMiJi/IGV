@@ -122,6 +122,20 @@
 					{
 						"navigationBarTitleText" : "设备详情"
 					}
+				},
+				{
+					"path" : "irrigation/index", // 7-v2
+					"style" : 
+					{
+						"navigationBarTitleText" : "灌溉"
+					}
+				},
+				{
+					"path" : "irrigation/group", // 7-v2
+					"style" : 
+					{
+						"navigationBarTitleText" : "灌溉组"
+					}
 				}
 			]
 		}

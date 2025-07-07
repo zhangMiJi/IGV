@@ -109,6 +109,11 @@
 						subTitle: '',
 					},
 					{
+						iamgeSrc: '/static/images/equip-manage.png', // 7-v2
+						title: '轮灌',
+						subTitle: '',
+					},
+					{
 						iamgeSrc: '/static/images/technical-service.png',
 						title: '技术服务',
 						subTitle: '开发中'
@@ -151,16 +156,19 @@
 					2: function () {
 						this.handleGoNav(name);
 					},
-					3: function () {
-						this.handleOpenModal('technicalServiceModalVisiable');
+					3: function () { // 7-v2   下面序号变一下
+						this.handleGoNav(name);
 					},
 					4: function () {
-						this.handleOpenModal('cooperationWinModalVisiable');
+						this.handleOpenModal('technicalServiceModalVisiable');
 					},
 					5: function () {
-						this.handleOpenModal('agriculturalMallModalVisiable');
+						this.handleOpenModal('cooperationWinModalVisiable');
 					},
 					6: function () {
+						this.handleOpenModal('agriculturalMallModalVisiable');
+					},
+					7: function () {
 						this.handleGoNav(name);
 					},
 				};
@@ -175,7 +183,8 @@
 				const urlListMap = {
 					0: '/pagesA/valveControl/index', // 门阀控制
 					2: '/pagesC/equipManage/index', // 设备管理
-					6: '/pages/user/index' // 完善用户信息
+					3: '/pagesC/irrigation/index', // 7-v2  下面序号变一下
+					7: '/pages/user/index' // 完善用户信息
 				}
 				console.log(nameIndex,urlListMap[nameIndex]);
 				
@@ -227,73 +236,73 @@
 </script>
 
 <style lang="scss" scoped>
-	.home-container {
-		.banner {
-			width: 100%;
-			height: 224px;
-			::v-deep .u-swiper {
-				width: 100%;
-				height: 100% !important;
-				border-radius: 0 !important;
-				&__wrapper {
-					height: 100% !important;
-					&__item__wrapper__image {
-						height: 100% !important;
-						border-radius: 0 !important;
-					}
-				}
-			}
-		}
-		.navigation-box {
-			padding: 28px 22px;
-			.navigation-item {
-				margin-bottom: 10px;
-				&-image {
-					display: block;
-					width: 66px;
-					height: 66px;
-				}
-				&-title {
-					font-size: 14px;
-					color: #6c6c6c;
-					margin-top: 6px;
-					width: 60px;
-					text-align: center;
-					white-space: pre-wrap;
-				}
-				&-subTitle {
-					font-size: 14px;
-					color: #bebebe;
-					margin-top: 8px;
-				}
-			}
-			::v-deep .u-grid-item {
-				height: 120px;
-				justify-content: flex-start !important;
-			}
-		}
-		.footer {
-			::v-deep .u-button {
-				position: fixed;
-				bottom: 60px;
-				left: 50%;
-				margin-left: -60px;
-				width: 120px;
-				height: 30px;
-				border-radius: 20px;
-				color: #000;
-			}
-		}
-		.top-text {
-			font-size: 18px;
-			color: $u-main-color;
-			text-align: center;
-		}
-		.sup-text {
-			display: block;
-			font-size: 14px;
-			margin-top: 10px;
-			text-align: center;
-		}
-	}
+.home-container {
+  .banner {
+    width: 100%;
+    height: 224px;
+    ::v-deep .u-swiper {
+      width: 100%;
+      height: 100% !important;
+      border-radius: 0 !important;
+      &__wrapper {
+        height: 100% !important;
+        &__item__wrapper__image {
+          height: 100% !important;
+          border-radius: 0 !important;
+        }
+      }
+    }
+  }
+  .navigation-box {
+    padding: 28px 22px;
+    .navigation-item {
+      margin-bottom: 10px;
+      &-image {
+        display: block;
+        width: 66px;
+        height: 66px;
+      }
+      &-title {
+        font-size: 14px;
+        color: #6c6c6c;
+        margin-top: 6px;
+        width: 60px;
+        text-align: center;
+        white-space: pre-wrap;
+      }
+      &-subTitle {
+        font-size: 14px;
+        color: #bebebe;
+        margin-top: 8px;
+      }
+    }
+    ::v-deep .u-grid-item {
+      height: 120px;
+      justify-content: flex-start !important;
+    }
+  }
+  .footer {
+    ::v-deep .u-button {
+      position: fixed;
+      bottom: 60px;
+      left: 50%;
+      margin-left: -60px;
+      width: 120px;
+      height: 30px;
+      border-radius: 20px;
+      color: #000;
+    }
+  }
+  .top-text {
+    font-size: 18px;
+    color: $u-main-color;
+    text-align: center;
+  }
+  .sup-text {
+    display: block;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
 </style>
