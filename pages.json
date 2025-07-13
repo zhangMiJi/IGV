@@ -136,6 +136,27 @@
 					{
 						"navigationBarTitleText" : "灌溉组"
 					}
+				},
+				{
+					"path" : "irrigation/autoGroup", // 7-v2
+					"style" : 
+					{
+						"navigationBarTitleText" : "自动轮管"
+					}
+				},
+				{
+					"path" : "irrigation/chooseValve", // 7-v2
+					"style" : 
+					{
+						"navigationBarTitleText" : "选择灌溉阀"
+					}
+				},
+				{
+					"path" : "irrigation/chooseGroup", // 7-v2
+					"style" : 
+					{
+						"navigationBarTitleText" : "选择轮罐组"
+					}
 				}
 			]
 		}

@@ -1,130 +1,218 @@
 <template>
 	<view class="valve-control-container">
-    <view class="title-lg">
-              <view class="item" @click="handleCheckTab(item.id)" :class="activTopIrrigation==item.id?'item-act':''" v-for="(item,index) in irrigationTab" :key="index">{{item.name}}</view>
-              <view class="item-add" @click="addGroup">+</view>
-    </view>
-    <view class="back-color">
-      <view class="no-content" v-if="!isNoData">
-          <view class='text-c'>
-            <view>您还未创建灌溉组或自动轮灌！</view>
-            <view class="text-2">请点击右上角的 <text class="add-icon">+</text> 图标新建灌溉组或自动轮灌
-            </view>    
+      <view class="group-irrigation">
+        <view class="left">
+          <view class="item">
+            <view class="text-1">灌溉状态</view>
+            <view class="text-2">空闲中/运行中</view>
           </view>
-          <view class='text-c'>
-            <view>您还未创建灌溉组！</view>
-            <view class="text-2">请点击右上角的 <text class="add-icon">+</text> 图标新建灌溉组
-            </view>    
-          </view>
-          <view class='text-c'>
-            <view>您还未创建自动轮灌！</view>
-            <view class="text-2">请点击右上角的 <text class="add-icon">+</text> 图标新建自动轮灌
-            </view>    
-          </view>
-      </view>
-      <view v-else class="page-data">
-        <view class="list">
-          <view class="left">icon</view>
-          <view class="right">
-            <view class="name">灌溉组025</view>
-            <view class="dec"><text>阀门数量： <text class="num">12</text> 台  |  运行中/空闲中</text></view>
-          </view>
-          <text class="more">icon</text>
         </view>
-        <view class="list">
-          <view class="left">icon</view>
-          <view class="right">
-            <view class="name">灌溉组025</view>
-            <view class="dec"><text>阀门数量： <text class="num">12</text> 台  |  运行中/空闲中</text></view>
+        <view class="right">
+          <view class="item">
+            <view class="text-1">灌溉阀状态</view>
+            <view class="text-2">A <text class="num num1">12</text> B <text class="num num2">2</text> </view>
           </view>
-          <text class="more">icon</text>
-        </view>
-        <view class="list">
-          <view class="left">icon</view>
-          <view class="right">
-            <view class="name">灌溉组025</view>
-            <view class="dec"><text>阀门数量： <text class="num">12</text> 台  |  运行中/空闲中</text></view>
-          </view>
-          <text class="more">icon</text>
         </view>
       </view>
-    </view>
-        <view class="tabbar">
-            <u-tabbar
-                :value="activeTabbar"
-                @change="handleTabbarChange"
-                activeColor="#81B337"
-                :fixed="true"
-                :placeholder="true"
-                :safeAreaInsetBottom="true"
-            >
-                <u-tabbar-item text="返回首页">
-                    <i class="iconfont active" slot="active-icon">&#xe704;</i>
-                    <i class="iconfont inactive" slot="inactive-icon">&#xe705;</i>
-                </u-tabbar-item>
-                <u-tabbar-item text="阀门控制">
-                    <i class="iconfont active" slot="active-icon">&#xe706;</i>
-                    <i class="iconfont inactive" slot="inactive-icon">&#xe707;</i>
-                </u-tabbar-item>
-                <u-tabbar-item text="设备管理">
-                    <i class="iconfont active" slot="active-icon">&#xe708;</i>
-                    <i class="iconfont inactive" slot="inactive-icon">&#xe709;</i>
-                </u-tabbar-item>
-            </u-tabbar>
-        </view>
+      <view class="back-color">
+        <div style="padding: 0 15px;">
+            <view class="list-group">
+              <view class="item" v-for="(list ,index) in dataList" :key="index">
+                <view class="li-1">
+                  <image class="content-item-left-img" src="/static/images/common.jpg"></image>
+                </view>
+                <view class="li-2">
+                  <view class="top">
+                    <text class="no">{{list.no}}</text><text class="name-2">{{list.name}}</text>
+                  </view>
+                  <view class="bottom">
+                    <text>icon</text><text class="name">{{list.text}}</text>
+                  </view>
+                </view>
+                <view class="li-3"><text>{{list.num1}}</text><text style="color: #101010;margin: 0 6px;"> / </text><text>{{list.num2}}</text></view>
+                <view class="li-4">操作</view>
+            </view>
+          </view>
+        </div>
+      </view>
+      <view class="tabbar">
+          <u-tabbar
+              :value="activeTabbar"
+              @change="handleTabbarChange"
+              activeColor="#81B337"
+              :fixed="true"
+              :placeholder="true"
+              :safeAreaInsetBottom="true"
+          >
+              <u-tabbar-item text="返回首页">
+                  <i class="iconfont active" slot="active-icon">&#xe704;</i>
+                  <i class="iconfont inactive" slot="inactive-icon">&#xe705;</i>
+              </u-tabbar-item>
+              <u-tabbar-item text="阀门控制">
+                  <i class="iconfont active" slot="active-icon">&#xe706;</i>
+                  <i class="iconfont inactive" slot="inactive-icon">&#xe707;</i>
+              </u-tabbar-item>
+              <u-tabbar-item text="设备管理">
+                  <i class="iconfont active" slot="active-icon">&#xe708;</i>
+                  <i class="iconfont inactive" slot="inactive-icon">&#xe709;</i>
+              </u-tabbar-item>
+          </u-tabbar>
+      </view>
 	</view>
 </template>
 <script>
 	export default {
 		data() {
 			return {
-                
-                activeTabbar: 1,
-                isNoData:true,
-                activTopIrrigation:2,
-                irrigationTab:[
-                  {name:'轮灌',id:0},
-                  {name:'灌溉组',id:1},
-                  {name:'全部',id:2}
-                ]
+        activeTabbar: 1,
+        dataList:[
+          {
+            name:'A阀',
+            id:0,
+            no:'13-1-1',
+            text:'这里是地块名称',
+            num1:3.2,
+            num2:'80%'
+          },
+          {
+            name:'A阀',
+            id:0,
+            no:'13-1-1',
+            text:'这里是地块名称',
+            num1:3.2,
+            num2:'80%'
+          }
+        ]
 			}
 		},
-        onLoad() {
-            
-            
-        },
+    onLoad() {
+    },
 		methods: {
-        handleCheckTab(id) {
-                this.activTopIrrigation = id;
-            },
-            addGroup() {
-                console.log('添加');
-            },
-
-            handleNavigateTo(valveInfo) {
-                console.log(valveInfo.locationName);
-                uni.navigateTo({
-                    url: '/pagesA/valveControl/valveInfo?valveInfo=' + JSON.stringify(valveInfo),
-                });
-            },
-
-            handleTabbarChange(name) {
-                if(name === 0) {
-                    uni.reLaunch({
-						url: '/pages/index/index'
-					});
-                }else if(name === 2) {
-                    uni.navigateTo({
-						url: '/pagesC/equipManage/index'
-					});
-                }
-            }
-
+      handleTabbarChange(name) {
+        if(name === 0) {
+              uni.reLaunch({
+            url: '/pages/index/index'
+        });}else if(name === 2) {
+            uni.navigateTo({
+            url: '/pagesC/equipManage/index'
+          });
+        }
+      }
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+.list-group {
+  margin-top: 90px;
+  .item {
+    border-radius: 6px;
+    margin-top: 12px;
+    background-color: #fff;
+    height: 60px;
+    display: flex;
+    .li-1 {
+      box-sizing: border-box;
+      padding: 0 13px;
+      flex-basis: 60px;
+      .content-item-left-img {
+        width: 33px;
+        height: 33px;
+        border-radius: 100%;
+        padding-top: 13px;
+      }
+    }
+    .li-2 {
+      box-sizing: border-box;
+      padding-top: 10px;
+      flex: 1;
+      font-size: 16px;
+      color: #101010;
+      .top {
+        .name-2 {
+          border-left: 1px solid #cecece;
+          padding-left: 10px;
+        }
+        .no {
+          padding-right: 10px;
+        }
+      }
+      .bottom {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #9a9a9a;
+        .name {
+          margin-left: 4px;
+        }
+      }
+    }
+    .li-3 {
+      box-sizing: border-box;
+      flex-basis: 80px;
+      text-align: center;
+      color: #0f40f5;
+      line-height: 60px;
+      margin-right: 20px;
+    }
+    .li-4 {
+      box-sizing: border-box;
+      flex-basis: 40px;
+      padding-right: 10px;
+      text-align: center;
+      color: #0f40f5;
+      font-size: 14px;
+      line-height: 60px;
+    }
+  }
+}
+.group-irrigation {
+  box-sizing: border-box;
+  height: 70px;
+  background-color: #fff;
+  position: fixed;
+  padding: 13px 0;
+  top: 0;
+  display: flex;
+  width: 100%;
+  .left,
+  .right {
+    padding-left: 20px;
+    text-align: left;
+    flex: 1;
+    .text-1 {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 3px;
+    }
+    .num {
+      margin-left: 10px;
+    }
+  }
+  .left .item {
+    border-right: 1px solid #cecece;
+    .text-2 {
+      color: #0f40f5;
+      font-size: 16px;
+    }
+  }
+  .right .item {
+    .num {
+      color: #0f40f5;
+    }
+    .num1 {
+      margin-right: 30px;
+    }
+  }
+}
+.back-color {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(246, 246, 246, 1);
+  z-index: -1;
+}
 .valve-control-container {
   ::v-deep .u-cell {
     &__title-text {
@@ -176,108 +264,6 @@
             background: #cecece;
           }
         }
-      }
-    }
-  }
-  .back-color {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(246, 246, 246, 1);
-    z-index: -1;
-  }
-  .title-lg {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    box-sizing: border-box;
-    display: flex;
-    text-align: center;
-    height: 64px;
-    padding: 12px 20px 0 20px;
-    background-color: rgba(15, 64, 245, 1);
-    .item {
-      height: 40px;
-      line-height: 40px;
-      padding: 0 19px;
-      border-radius: 20px;
-      border: 1px solid rgba(248, 248, 248, 1);
-      margin-right: 12px;
-      color: rgba(248, 248, 248, 1);
-      font-size: 14px;
-    }
-    .item-add {
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      color: rgba(248, 248, 248, 1);
-      margin-left: auto;
-      border-radius: 100%;
-      border: 1px solid rgba(255, 255, 255, 1);
-    }
-    .item-act {
-      background-color: #fff;
-      color: rgba(15, 64, 245, 1);
-    }
-  }
-  .no-content {
-    color: rgba(154, 154, 154, 1);
-    font-size: 18px;
-    text-align: center;
-    .text-c {
-      padding-top: 90px;
-    }
-    .add-icon {
-      display: inline-block;
-      width: 28px;
-      height: 28px;
-      line-height: 28px;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 1);
-      border: 1px solid rgba(15, 64, 245, 1);
-      margin: 0 10px;
-      font-size: 22px;
-      color: rgba(15, 64, 245, 1);
-      border-radius: 100%;
-    }
-    .text-2 {
-      padding-top: 10px;
-      font-size: 14px;
-    }
-  }
-  .page-data {
-    padding: 84px 15px 0 15px;
-    .list {
-      margin-bottom: 12px;
-      position: relative;
-      display: flex;
-      border-radius: 6px;
-      padding: 15px 9px;
-      background-color: rgba(255, 255, 255, 1);
-      .left {
-        flex-basis: 40px;
-        margin-right: 11px;
-      }
-      .right {
-        flex: 1;
-        .name {
-          color: rgba(79, 79, 79, 1);
-          font-size: 16px;
-          margin-bottom: 3px;
-        }
-        .dec {
-          color: rgba(154, 154, 154, 1);
-          font-size: 12px;
-          .num {
-            color: rgba(15, 64, 245, 1);
-          }
-        }
-      }
-      .more {
-        position: absolute;
-        right: 20px;
       }
     }
   }
