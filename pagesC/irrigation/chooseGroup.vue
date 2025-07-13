@@ -4,12 +4,12 @@
         <view class="list-group">
           <view class="choose-t">请选择参与轮灌的灌溉组</view>
           <view class="item" v-for="(item,index) in dataList" :key="index" @click="checkShow(item)">
-            <u-checkbox-group 
-                v-model="item.checked"
+            <u-checkbox-group
+                @change="(obj) => radioChange(item,obj)" 
                 iconPlacement="right"
                 shape="circle" 
                 placement="row">
-              <u-checkbox activeColor="#0F40F5" :label="item.name"></u-checkbox>
+              <u-checkbox activeColor="#0F40F5" :key="index" :label="item.name" :name="item.id"></u-checkbox>
             </u-checkbox-group>
           </view>
         </view>
@@ -18,11 +18,11 @@
           <view v-show="lookDetail" class="sort-c">点击右侧按钮调整灌溉组的轮灌顺序</view>
           <view v-show="lookDetail">
             <view class="list">
-              <view v-for="(item,index) in dataList" :key="index">
+              <view v-for="(item,index) in checkedChoose" :key="index">
                   <view class="li" v-if="item.checked">
                     <view>{{item.name }}</view>
-                    <view v-if="index==0"><text>icon</text> <text class="up-down">下移</text> </view>
-                    <view v-else><text>icon</text> <text class="up-down">上移</text> </view>
+                    <view v-if="index==0"><text>icon</text> <text class="up-down" @click="moveDown(index)">下移</text> </view>
+                    <view v-else><text>icon</text> <text class="up-down" @click="moveUp(index)">上移</text> </view>
                   </view>
               </view>
             </view>
@@ -54,17 +54,38 @@
             id:2
           }
         ],
+        checkedChoose:[],
 			}
 		},
     onLoad() {
     },
     computed: {
-      checkedChoose() {
-        // 返回计算结果
-        return this.dataList.filter((item)=> item.checked);
-      }
+      
     },
 		methods: {
+      radioChange(item,obj){
+        let chooseobj = this.dataList.find((list)=> list.id==item.id);
+        if(obj.length>0){
+          console.log('选中')
+          chooseobj.checked = true;
+        }else {
+          console.log('未选中')
+          chooseobj.checked = false;
+        }
+        this.checkedChoose = JSON.parse(JSON.stringify(this.dataList.filter((item)=> item.checked)));
+      },
+      moveUp(index) {
+        if (index === 0) return; // 第一个不能上移
+        const temp = this.checkedChoose[index - 1];
+        this.$set(this.checkedChoose, index - 1, this.checkedChoose[index]);
+        this.$set(this.checkedChoose, index, temp);
+      },
+      moveDown(index) {
+        if (index === this.checkedChoose.length - 1) return; // 最后一个不能下移
+        const temp = this.checkedChoose[index + 1];
+        this.$set(this.checkedChoose, index + 1, this.checkedChoose[index]);
+        this.$set(this.checkedChoose, index, temp);
+      },
       checkShow(item){
         item.show = !item.show;
       },
